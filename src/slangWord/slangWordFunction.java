@@ -305,7 +305,7 @@ public class slangWordFunction {
 			System.out.println("Please choose what you want to do: ");
 			System.out.println("1.Find the definition of slang word");
 			System.out.println("2.Find all slangs word by its definition..");
-			System.out.println("3.Show your history..");
+			System.out.println("3.Show what you have searched before");
 			System.out.println("4.Add a new slang..");
 			System.out.println("5.Edit a slang..");
 			System.out.println("6.Delete a slang..");
