@@ -306,13 +306,13 @@ public class slangWordFunction {
 			System.out.println("1.Find the definition of slang word");
 			System.out.println("2.Find all slangs word by its definition..");
 			System.out.println("3.Show what you have searched before");
-			System.out.println("4.Add a new slang..");
-			System.out.println("5.Edit a slang..");
-			System.out.println("6.Delete a slang..");
-			System.out.println("7.Reset the list slang..");
-			System.out.println("8.Give a random slang..");
-			System.out.println("9.Riddle 1..");
-			System.out.println("10.Riddle 2..");
+			System.out.println("4.Add a new slang word");
+			System.out.println("5.Edit a slang word");
+			System.out.println("6.Delete a slang word");
+			System.out.println("7.Reset the initial slang word");
+			System.out.println("8.Random a slangWord");
+			System.out.println("9.Play riddle with slang word");
+			System.out.println("10.Play riddle with definition");
 			choice=Integer.parseInt(scanner.nextLine());
 			switch(choice) {
 				case 1:
