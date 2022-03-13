@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import slangWord.slangWordDefinition;
 
@@ -26,6 +27,9 @@ public class file {
 			String definition=line.substring(position+1,line.length());
 			slang.slangWord=slangWord;
 			slang.definition=definition;
+			String str[]=definition.split("[ |]");
+			slang.keyExist=new ArrayList<String>(Arrays.asList(str));
+			
 			
 		}
 		

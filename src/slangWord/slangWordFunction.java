@@ -2,6 +2,7 @@ package slangWord;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.TreeSet;
 
 import fileContainer.file;
 
@@ -24,6 +25,43 @@ public class slangWordFunction {
 		{
 			System.out.println("Can not find any meaning for that slang word");
 		}
+	}
+	public static TreeSet<String> SearchSlang(String line, ArrayList<slangWordDefinition> slang)
+	{
+		TreeSet<String>a = new TreeSet<String>();
+		Boolean exist=false;
+		for(int i=0;i<slang.size();i++)
+		{
+			String b= slang.get(i).definition;
+			if(b.indexOf(line)!=-1)
+			{	
+				ArrayList<String>c = slang.get(i).keyExist;
+				for(int j=0;j<c.size();j++)
+				{
+					if(c.get(j).indexOf(line) != -1)
+					{
+						a.add(slang.get(i).slangWord);
+						
+						exist=true;
+					}
+				}
+				
+			}
+			
+		}
+		if(exist==false)
+		{
+			System.out.println("Khong co slang word nao trong tu dien phu hop");
+		}
+		else
+		{
+			System.out.println("Cac slang word tim duoc la: ");
+			for(String word:a)
+			{
+				System.out.println(word);
+			}
+		}
+		return a;
 	}
 	public static void main(String[] args) {
 		file file=new file();
@@ -56,10 +94,21 @@ public class slangWordFunction {
 					SearchWord(line,slang);
 					break;
 				case 2:
+					System.out.println("Please enter the definition you want to find");
+					line=scanner.nextLine();
+					TreeSet<String> searchLang=SearchSlang(line,slang);
+					if(searchLang.size()!=0)
+					{
+						for(String temp:searchLang)
+						{
+							file.writeFileHistory(temp);
+						}
+					}
+					break;
+				case 3:
+					
 					
 			}	
-			
-			
 			System.out.println("Click 1 to continue, if not click 0");
 			n=Integer.parseInt(scanner.nextLine());
 			
