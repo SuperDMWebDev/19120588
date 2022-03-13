@@ -1,5 +1,7 @@
 package slangWord;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.TreeSet;
@@ -63,6 +65,51 @@ public class slangWordFunction {
 		}
 		return a;
 	}
+	public static void addSlangWord(String key, String definition, ArrayList<slangWordDefinition> slang)
+	{
+		Boolean exist=false;
+		for(int i=0;i<slang.size();i++)
+		{
+			if(slang.get(i).slangWord.compareTo(key)==0)
+			{
+				exist=true;
+				System.out.println("This slang word already existed");
+				System.out.println("Type 1 if you want to override it or type 2 to create a new one");
+				Scanner scanner= new Scanner(System.in);
+				int n=Integer.parseInt(scanner.nextLine());
+				if(n==1)
+				{
+					// day dung de edit key 
+				}
+				else {
+						
+						try {
+							String line=key+"`"+definition;
+							FileWriter fw = new FileWriter("slang.txt",true);
+							fw.write(line+"\n");
+							fw.close();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+				}
+				break;
+			}
+		}
+		if(exist==false)
+		{
+			try {
+				String line=key+"`"+definition;
+				FileWriter fw = new FileWriter("slang.txt",true);
+				fw.write(line+"\n");
+				fw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 	public static void main(String[] args) {
 		file file=new file();
 		String fileName="slang.txt";
@@ -106,7 +153,18 @@ public class slangWordFunction {
 					}
 					break;
 				case 3:
+					System.out.println("Danh sach cac slang word da tim kiem ");
+					file.printHistory();
+					break;
+				case 4:
+					System.out.println("Please enter the slang word you want to add");
+					String key=scanner.nextLine();
+					System.out.println("Please enter the definition of the slang word you just typed");
+					String definition= scanner.nextLine();
+					addSlangWord(key,definition,slang);
 					
+					break;
+				case 5:
 					
 			}	
 			System.out.println("Click 1 to continue, if not click 0");

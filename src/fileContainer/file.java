@@ -72,6 +72,23 @@ public class file {
 			e.printStackTrace();
 		}
 	}
+	public void printHistory() {
+		try {
+			String fileName=System.getProperty("user.dir");
+			fileName=fileName+"\\src\\fileContainer\\history.txt";
+			BufferedReader br = new BufferedReader( new FileReader(fileName));
+			String str=null;
+			while((str=br.readLine())!=null)
+			{
+				System.out.println(str);
+				
+			}
+			br.close();
+		}catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
 	
 	
 }
