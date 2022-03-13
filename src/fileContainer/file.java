@@ -3,6 +3,7 @@ package fileContainer;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -56,6 +57,18 @@ public class file {
 			}
 		}
 	}
+	public void writeFileHistory(String line)
+	{
+		try {
+			FileWriter fw = new FileWriter("history.txt");
+			fw.write(line+"\n");
+			fw.close();
+		}catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	
 }
 

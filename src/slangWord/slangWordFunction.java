@@ -6,6 +6,25 @@ import java.util.Scanner;
 import fileContainer.file;
 
 public class slangWordFunction {
+	public static void SearchWord(String word, ArrayList<slangWordDefinition> slang)
+	{
+		Boolean exist=false;
+		for(int i=0;i<slang.size();i++)
+		{
+	
+			// so sanh neu 2 chuoi giong nhau thi tra ve
+			if(slang.get(i).slangWord.compareTo(word)==0)
+			{
+				System.out.println("The meaning of slang word is "+slang.get(i).definition );
+				exist=true;
+				break;
+			}
+		}
+		if(exist==false)
+		{
+			System.out.println("Can not find any meaning for that slang word");
+		}
+	}
 	public static void main(String[] args) {
 		file file=new file();
 		String fileName="slang.txt";
@@ -14,6 +33,8 @@ public class slangWordFunction {
 		int n=0;
 		int choice=0;
 		String line="";
+		//goi ham docfile
+		file.readFile(slang, fileName);
 		do {
 			System.out.println("Please choose what you want to do: ");
 			System.out.println("1.Find the meaning by slang word..");
@@ -31,6 +52,10 @@ public class slangWordFunction {
 				case 1:
 					System.out.println("Please input slang word you want to find meaning");
 					line=scanner.nextLine();
+					file.writeFileHistory(line);
+					SearchWord(line,slang);
+					break;
+				case 2:
 					
 			}	
 			
@@ -40,7 +65,6 @@ public class slangWordFunction {
 			
 		}while(n!=0);
 		
-		//goi ham docfile
-		file.readFile(slang, fileName);
+		
 	}
 }
