@@ -64,7 +64,9 @@ public class file {
 	public void writeFileHistory(String line)
 	{
 		try {
-			FileWriter fw = new FileWriter("history.txt");
+			String fileName=System.getProperty("user.dir");
+			fileName=fileName+"\\src\\fileContainer\\history.txt";
+			FileWriter fw = new FileWriter(fileName,true);
 			fw.write(line+"\n");
 			fw.close();
 		}catch(IOException e)

@@ -51,6 +51,7 @@ public class slangWordFunction {
 			}
 			
 		}
+		
 		if(exist==false)
 		{
 			System.out.println("Khong co slang word nao trong tu dien phu hop");
@@ -64,6 +65,17 @@ public class slangWordFunction {
 			}
 		}
 		return a;
+	}
+	public static void printKeyList(ArrayList<slangWordDefinition> slang) {
+		for(int i=0;i<slang.size();i++)
+		{
+			ArrayList<String> c=(ArrayList<String>)slang.get(i).keyExist.clone();
+			for(int j=0;j<c.size();j++)
+			{
+				System.out.println(c.get(j))
+			}
+		}
+		
 	}
 	public static void addSlangWord(String key, String definition, ArrayList<slangWordDefinition> slang)
 	{
@@ -375,6 +387,9 @@ public class slangWordFunction {
 					break;
 				case 10:
 					RiddleWithDefinition(slang);
+					break;
+				case 11:
+					printKeyList(slang);
 					break;
 				default:
 					System.out.println("You choose the wrong number");
