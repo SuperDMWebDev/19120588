@@ -1,5 +1,6 @@
 package slangWord;
 
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,13 +15,15 @@ public class slangWordFunction {
 		Boolean exist=false;
 		for(int i=0;i<slang.size();i++)
 		{
-	
+			if(slang.get(i).slangWord!=null)
+			{
 			// so sanh neu 2 chuoi giong nhau thi tra ve
 			if(slang.get(i).slangWord.compareTo(word)==0)
 			{
 				System.out.println("The meaning of slang word is "+slang.get(i).definition );
 				exist=true;
 				break;
+			}
 			}
 		}
 		if(exist==false)
@@ -40,7 +43,7 @@ public class slangWordFunction {
 				ArrayList<String>c = slang.get(i).keyExist;
 				for(int j=0;j<c.size();j++)
 				{
-					if(c.get(j).indexOf(line) != -1)
+					if(c.get(j).equals(line)==true)
 					{
 						a.add(slang.get(i).slangWord);
 						
@@ -72,76 +75,38 @@ public class slangWordFunction {
 			ArrayList<String> c=(ArrayList<String>)slang.get(i).keyExist.clone();
 			for(int j=0;j<c.size();j++)
 			{
-				System.out.println(c.get(j))
+				System.out.print(c.get(j)+" ");
 			}
+			System.out.println();
 		}
 		
 	}
-	public static void addSlangWord(String key, String definition, ArrayList<slangWordDefinition> slang)
-	{
-		Boolean exist=false;
-		for(int i=0;i<slang.size();i++)
-		{
-			if(slang.get(i).slangWord.compareTo(key)==0)
-			{
-				exist=true;
-				System.out.println("This slang word already existed");
-				System.out.println("Type 1 if you want to override it or type 2 to create a new one");
-				Scanner scanner= new Scanner(System.in);
-				int n=Integer.parseInt(scanner.nextLine());
-				if(n==1)
-				{
-					// day dung de edit key 
-				}
-				else {
-						
-						try {
-							String line=key+"`"+definition;
-							FileWriter fw = new FileWriter("slang.txt",true);
-							fw.write(line+"\n");
-							fw.close();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						
-				}
-				break;
-			}
-		}
-		if(exist==false)
-		{
-			try {
-				String line=key+"`"+definition;
-				FileWriter fw = new FileWriter("slang.txt",true);
-				fw.write(line+"\n");
-				fw.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
-	public static void editSlangWord(String key, String newKey, String definition, ArrayList<slangWordDefinition>slang)
+	public static void editSlangWord(String key, String newKey, String definition, ArrayList<slangWordDefinition>slang, int k)
 	{
 		// xoa di file txt
 		Boolean exist=false;
+		String fileName=System.getProperty("user.dir");
+		fileName=fileName+"\\src\\fileContainer\\slang.txt";
 		try {
 			
-			FileWriter fw = new FileWriter("slang.txt");
+			FileWriter fw = new FileWriter(fileName);
 			fw.close();
-			FileWriter fw1= new FileWriter("slang.txt",true);
+			FileWriter fw1= new FileWriter(fileName,true);
 			for(int i=0;i<slang.size();i++)
 			{
-				if(slang.get(i).slangWord.compareTo(key)==0)
-				{
-					String line=newKey+"`"+definition;
-					fw1.write(line+"\n");
-					exist=true;
-				}
-				else {
-					fw1.write(slang.get(i).slangWord+"`"+slang.get(i).definition+"\n");
-				}
+						
+					if(slang.get(i).slangWord.compareTo(key)==0)
+					{
+						slang.get(i).definition=definition;
+						slang.get(i).slangWord=newKey;
+						String line=newKey+"`"+definition;
+						fw1.write(line+"\n");
+						exist=true;
+					}
+					else {
+						fw1.write(slang.get(i).slangWord+"`"+slang.get(i).definition+"\n");
+					}
+				
 			}
 			fw1.close();
 		}catch(IOException e)
@@ -159,23 +124,80 @@ public class slangWordFunction {
 		
 		
 	}
+
+	public static void addSlangWord(String key, String definition, ArrayList<slangWordDefinition> slang)
+	{
+		Boolean exist=false;
+		String fileName=System.getProperty("user.dir");
+		fileName=fileName+"\\src\\fileContainer\\slang.txt";
+		for(int i=0;i<slang.size();i++)
+		{
+			if(slang.get(i).slangWord.compareTo(key)==0)
+			{
+				exist=true;
+				System.out.println("This slang word already existed");
+				System.out.println("Type 1 if you want to override it or type 2 to create a new one");
+				Scanner scanner= new Scanner(System.in);
+				int n=Integer.parseInt(scanner.nextLine());
+				if(n==1)
+				{
+					editSlangWord(key,key,definition,slang,i);
+				}
+				else {
+						
+						try {
+							
+							String line=key+"`"+definition;
+							FileWriter fw = new FileWriter(fileName,true);
+							fw.write(line+"\n");
+							fw.close();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+				}
+				break;
+			}
+		}
+		if(exist==false)
+		{
+			try {
+				String line=key+"`"+definition;
+				
+				FileWriter fw = new FileWriter(fileName,true);
+				fw.write(line+"\n");
+				fw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 	public static void deleteSlang(String key, ArrayList<slangWordDefinition>slang)
 	{
 		Boolean exist=false;
+		String fileName=System.getProperty("user.dir");
+		fileName=fileName+"\\src\\fileContainer\\slang.txt";
 		try {
 			
 		
-		FileWriter fw= new FileWriter("slang.txt");
+		FileWriter fw= new FileWriter(fileName);
 		fw.close();
-		FileWriter fw1= new FileWriter("slang.txt",true);
+		FileWriter fw1= new FileWriter(fileName,true);
 		for(int i=0;i<slang.size();i++)
 		{
-			if(slang.get(i).slangWord.compareTo(key)!=0)
+			if(slang.get(i)!=null)
 			{
-				fw1.write(slang.get(i).slangWord+"`"+slang.get(i).definition+"\n");
-			}
-			else {
-				exist=true;
+				String slangWord=slang.get(i).slangWord;
+				if(slangWord.compareTo(key)!=0)
+				{
+					fw1.write(slang.get(i).slangWord+"`"+slang.get(i).definition+"\n");
+				}
+				else {
+					slang.remove(i);
+					exist=true;
+				}
 			}
 		}
 		fw1.close();
@@ -196,23 +218,28 @@ public class slangWordFunction {
 	}
 	public static ArrayList<slangWordDefinition> resetList()
 	{
-		String slangFile="slang.txt";
-		String originalFile="copy.txt";
+		String slangFile=System.getProperty("user.dir");
+		slangFile=slangFile+"\\src\\fileContainer\\slang.txt";
+		
+		String originalFile=System.getProperty("user.dir");
+		originalFile=originalFile+"\\src\\fileContainer\\original.txt";
+		
 		// ret file slangFile 
 		file file= new file();
 		ArrayList<slangWordDefinition> slang= new ArrayList<slangWordDefinition>();
 		//doc du lieu vao slang
-		file.readFile(slang, originalFile);
+		file.readFile(slang, "original.txt");
 		
 		try {
-			FileWriter fw= new FileWriter(slangFile);
-			fw.close();
-			FileWriter fw1= new FileWriter(slangFile,true);
-			for(int i=0;i<slang.size();i++)
-			{
-				String line=slang.get(i).slangWord+"`"+slang.get(i).definition;
-				fw1.write(line+"\n");
-			}
+			FileReader fin = new FileReader(originalFile);  
+			 FileWriter fout = new FileWriter(slangFile);
+			  int c;  
+			 while ((c = fin.read()) != -1) {  
+				   fout.write(c);  
+			}  
+			 fin.close();
+			 fout.close();
+			 
 		}catch(IOException e)
 		{
 			e.printStackTrace();
@@ -364,16 +391,19 @@ public class slangWordFunction {
 					String newKey=scanner.nextLine();
 					System.out.println("Please enter the definition of the slang word you just typed");
 					String definition1= scanner.nextLine();
-					editSlangWord(key1,newKey,definition1,slang);
+					editSlangWord(key1,newKey,definition1,slang,0);
+					break;
 				case 6:
 					System.out.println("Please enter the slang word you want to delete");
 					line=scanner.nextLine();
 					System.out.println("Are you sure you want to delete(type y to continue, type n to stop");
-					String key2=scanner.nextLine();
-					if(key2=="y")
+					String key11=scanner.nextLine();
+					Character key2=key11.charAt(0);
+					if(key2=='y')
 					{
 						deleteSlang(line,slang);
 					}
+					break;
 				case 7:
 					slang=(ArrayList<slangWordDefinition>)resetList().clone();
 					System.out.println("Reset successful");
@@ -393,6 +423,7 @@ public class slangWordFunction {
 					break;
 				default:
 					System.out.println("You choose the wrong number");
+					
 					
 			}	
 			System.out.println("Click 1 to continue, if not click 0");

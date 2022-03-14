@@ -40,7 +40,7 @@ public class file {
 	public void readFile(ArrayList<slangWordDefinition> slang,String directory)
 	{
 		String fileName=System.getProperty("user.dir");
-		fileName=fileName+"\\src\\fileContainer\\slang.txt";
+		fileName=fileName+String.format("\\src\\fileContainer\\%s",directory);
 		if(fileName!=null)
 		{
 			// doc file slang.txt
