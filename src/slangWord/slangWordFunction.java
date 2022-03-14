@@ -258,16 +258,16 @@ public class slangWordFunction {
 	{
 		int slang1 = randomSlangWord(slang);
 		System.out.println("Please choose the meaning of this "+slang.get(slang1).slangWord);
-		int max=3;
-		int min=0;
+		int max=4;
+		int min=1;
 		int range=max-min+1;
 		// rand se la con so giu dap an dung
 		int rand=(int)(Math.random()*range)+min;
-		for(int i=0;i<4;i++)
+		for(int i=1;i<=4;i++)
 		{
 			if(i==rand)
 			{
-				System.out.println(i+". "+slang.get(slang1).definition);
+				System.out.println(i+ ". "+slang.get(slang1).definition);
 			}
 			else {
 				int k=randomSlangWord(slang);
@@ -280,7 +280,7 @@ public class slangWordFunction {
 		}
 		Scanner scanner= new Scanner(System.in);
 		int k=Integer.parseInt(scanner.nextLine());
-		if(k==rand)
+		if(k!=rand)
 		{
 			System.out.println("You choose the wrong answer");
 			System.out.println("The correct answer is "+rand);
@@ -296,12 +296,12 @@ public class slangWordFunction {
 	{
 		int slang1 = randomSlangWord(slang);
 		System.out.println("Please choose the slang word which has its definition is "+slang.get(slang1).definition);
-		int max=3;
-		int min=0;
+		int max=4;
+		int min=1;
 		int range=max-min+1;
 		// rand se la con so giu dap an dung
 		int rand=(int)(Math.random()*range)+min;
-		for(int i=0;i<4;i++)
+		for(int i=1;i<=4;i++)
 		{
 			if(i==rand)
 			{
@@ -318,7 +318,7 @@ public class slangWordFunction {
 		}
 		Scanner scanner= new Scanner(System.in);
 		int k=Integer.parseInt(scanner.nextLine());
-		if(k==rand)
+		if(k!=rand)
 		{
 			System.out.println("You choose the wrong answer");
 			System.out.println("The correct answer is "+rand);
@@ -396,7 +396,7 @@ public class slangWordFunction {
 				case 6:
 					System.out.println("Please enter the slang word you want to delete");
 					line=scanner.nextLine();
-					System.out.println("Are you sure you want to delete(type y to continue, type n to stop");
+					System.out.println("Are you sure you want to delete(type y to continue, type n to stop): ");
 					String key11=scanner.nextLine();
 					Character key2=key11.charAt(0);
 					if(key2=='y')
