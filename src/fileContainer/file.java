@@ -18,8 +18,7 @@ public class file {
 		int position=line.indexOf("`");
 		if(position==-1)
 		{
-			// khong tim thay 
-			System.out.println("Loi file");
+			
 			
 		}
 		else {

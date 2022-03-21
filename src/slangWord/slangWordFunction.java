@@ -1,5 +1,6 @@
 package slangWord;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -38,19 +39,22 @@ public class slangWordFunction {
 		for(int i=0;i<slang.size();i++)
 		{
 			String b= slang.get(i).definition;
-			if(b.indexOf(line)!=-1)
-			{	
-				ArrayList<String>c = slang.get(i).keyExist;
-				for(int j=0;j<c.size();j++)
-				{
-					if(c.get(j).equals(line)==true)
+			if(b!=null)
+			{
+				if(b.indexOf(line)!=-1)
+				{	
+					ArrayList<String>c = slang.get(i).keyExist;
+					for(int j=0;j<c.size();j++)
 					{
-						a.add(slang.get(i).slangWord);
-						
-						exist=true;
+						if(c.get(j).equals(line)==true)
+						{
+							a.add(slang.get(i).slangWord);
+							
+							exist=true;
+						}
 					}
+					
 				}
-				
 			}
 			
 		}
@@ -94,17 +98,19 @@ public class slangWordFunction {
 			FileWriter fw1= new FileWriter(fileName,true);
 			for(int i=0;i<slang.size();i++)
 			{
-						
-					if(slang.get(i).slangWord.compareTo(key)==0)
-					{
-						slang.get(i).definition=definition;
-						slang.get(i).slangWord=newKey;
-						String line=newKey+"`"+definition;
-						fw1.write(line+"\n");
-						exist=true;
-					}
-					else {
-						fw1.write(slang.get(i).slangWord+"`"+slang.get(i).definition+"\n");
+					if(slang.get(i).slangWord!=null)
+					{				
+						if(slang.get(i).slangWord.compareTo(key)==0)
+						{
+							slang.get(i).definition=definition;
+							slang.get(i).slangWord=newKey;
+							String line=newKey+"`"+definition;
+							fw1.write(line+"\n");
+							exist=true;
+						}
+						else {
+							fw1.write(slang.get(i).slangWord+"`"+slang.get(i).definition+"\n");
+						}
 					}
 				
 			}
@@ -132,42 +138,47 @@ public class slangWordFunction {
 		fileName=fileName+"\\src\\fileContainer\\slang.txt";
 		for(int i=0;i<slang.size();i++)
 		{
-			if(slang.get(i).slangWord.compareTo(key)==0)
+			if(slang.get(i).slangWord!=null)
 			{
-				exist=true;
-				System.out.println("This slang word already existed");
-				System.out.println("Type 1 if you want to override it or type 2 to create a new one");
-				Scanner scanner= new Scanner(System.in);
-				int n=Integer.parseInt(scanner.nextLine());
-				if(n==1)
+				if(slang.get(i).slangWord.compareTo(key)==0)
 				{
-					editSlangWord(key,key,definition,slang,i);
-				}
-				else {
-						
-						try {
+					exist=true;
+					System.out.println("This slang word already existed");
+					System.out.println("Type 1 if you want to override it or type 2 to create a new one");
+					Scanner scanner= new Scanner(System.in);
+					int n=Integer.parseInt(scanner.nextLine());
+					if(n==1)
+					{
+						editSlangWord(key,key,definition,slang,i);
+					}
+					else {
 							
-							String line=key+"`"+definition;
-							FileWriter fw = new FileWriter(fileName,true);
-							fw.write(line+"\n");
-							fw.close();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						
+							try {
+								
+								String line=key+"`"+definition;
+								FileWriter fw = new FileWriter(fileName,true);
+								fw.write(line+"\n");
+								System.out.println("Add new slang word success");
+								fw.close();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
+					}
+					break;
 				}
-				break;
 			}
 		}
 		if(exist==false)
 		{
 			try {
-				String line=key+"`"+definition;
 				
+				String line=key+"`"+definition;
 				FileWriter fw = new FileWriter(fileName,true);
 				fw.write(line+"\n");
 				fw.close();
+				System.out.println("Add new slang word success");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -187,7 +198,7 @@ public class slangWordFunction {
 		FileWriter fw1= new FileWriter(fileName,true);
 		for(int i=0;i<slang.size();i++)
 		{
-			if(slang.get(i)!=null)
+			if(slang.get(i).slangWord!=null)
 			{
 				String slangWord=slang.get(i).slangWord;
 				if(slangWord.compareTo(key)!=0)
@@ -196,6 +207,7 @@ public class slangWordFunction {
 				}
 				else {
 					slang.remove(i);
+					i--;
 					exist=true;
 				}
 			}
@@ -382,7 +394,10 @@ public class slangWordFunction {
 					System.out.println("Please enter the definition of the slang word you just typed");
 					String definition= scanner.nextLine();
 					addSlangWord(key,definition,slang);
-					
+					// cap nhat lai slang khi moi them gia tri vao 
+					ArrayList<slangWordDefinition> slang2= new ArrayList<slangWordDefinition>();
+					file.readFile(slang2, "slang.txt");
+					slang=slang2;
 					break;
 				case 5:
 					System.out.println("Please enter the slang word you want to edit");
@@ -418,19 +433,14 @@ public class slangWordFunction {
 				case 10:
 					RiddleWithDefinition(slang);
 					break;
-				case 11:
-					printKeyList(slang);
-					break;
 				default:
-					System.out.println("You choose the wrong number");
-					
-					
+					System.out.println("You choose the wrong number");				
 			}	
 			System.out.println("Click 1 to continue, if not click 0");
 			n=Integer.parseInt(scanner.nextLine());
 			
 		}while(n!=0);
-		
+		System.out.println("Thank you!!!");
 		
 	}
 }
